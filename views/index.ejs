@@ -1,0 +1,61 @@
+<%- include('./partials/header') %>
+    <h1>Welcome <%= name %></h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Create Student</h1>
+                <form action="/student" method="post" class="form-control">
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input name="name" type="text" class="form-control" id="name" placeholder="name">
+                  </div>
+                  <div class="mb-3">
+                    <label for="roll" class="form-label">Roll</label>
+                    <input name="roll" class="form-control" type="text" id="roll" rows="3" placeholder="roll"/>
+                  </div>
+                  <div class="mb-3">
+                    <label for="city" class="form-label">City</label>
+                    <input name="city" class="form-control" type="text" id="city" rows="3" placeholder="city"/>
+                  </div>
+                  <button class="btn btn-danger" type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="col">
+                <h1>Students List</h1>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sn</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Roll</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% var i=0 %>
+                      <% student.forEach((item)=>{ %>
+                        <tr>
+                          <th scope="row"><%= ++i %> </th>
+                          <td><%= item.name %> </td>
+                          <td> <%= item.roll %> </td>
+                          <td> <%= item.city %> </td>
+                          <td>
+                            <form action="/student/update/<%= item._id %> " method="get">
+                              <button type="submit" class="btn"><i class="fas fa-edit"></i></button>
+                          </form>
+                        </td>
+                          <td>
+                            <form action="/student/delete/<%= item._id %> " method="post">
+                              <button type="submit" class="btn"><i class="fas fa-trash"></i></button>
+                          </form>
+                        </td>
+                        </tr>
+                      <%})%>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+    
+<%- include('./partials/footer') %>
